@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EMSdb1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dept">
+          <Key>
+            <PropertyRef Name="dept_id" />
+          </Key>
+          <Property Name="dept_id" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="dept_name" Type="nvarchar" MaxLength="11" />
+          <Property Name="dept_manager" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Emp">
+          <Key>
+            <PropertyRef Name="Emp_id" />
+          </Key>
+          <Property Name="Emp_id" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Emp_pass" Type="nvarchar" MaxLength="20" />
+          <Property Name="Emp_name" Type="nvarchar" MaxLength="11" />
+          <Property Name="Emp_phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="Emp_manager" Type="bit" />
+          <Property Name="Emp_dept" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Equ">
+          <Key>
+            <PropertyRef Name="Equ_Id" />
+          </Key>
+          <Property Name="Equ_Id" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Equ_name" Type="nvarchar" MaxLength="11" />
+          <Property Name="Equ_standards" Type="nvarchar" MaxLength="11" />
+          <Property Name="Equ_img" Type="nvarchar" MaxLength="50" />
+          <Property Name="Equ_price" Type="int" />
+          <Property Name="Equ_date" Type="date" />
+          <Property Name="Equ_location" Type="nvarchar" MaxLength="11" />
+          <Property Name="Equ_resp" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <Association Name="FK__dept__dept_manag__276EDEB3">
+          <End Role="Emp" Type="Self.Emp" Multiplicity="0..1" />
+          <End Role="dept" Type="Self.dept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emp">
+              <PropertyRef Name="Emp_id" />
+            </Principal>
+            <Dependent Role="dept">
+              <PropertyRef Name="dept_manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Emp__Emp_dept__14270015">
+          <End Role="dept" Type="Self.dept" Multiplicity="0..1" />
+          <End Role="Emp" Type="Self.Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dept">
+              <PropertyRef Name="dept_id" />
+            </Principal>
+            <Dependent Role="Emp">
+              <PropertyRef Name="Emp_dept" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equ__Equ_resp__75A278F5">
+          <End Role="Emp" Type="Self.Emp" Multiplicity="0..1" />
+          <End Role="Equ" Type="Self.Equ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emp">
+              <PropertyRef Name="Emp_id" />
+            </Principal>
+            <Dependent Role="Equ">
+              <PropertyRef Name="Equ_resp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EMSdb1ModelStoreContainer">
+          <EntitySet Name="dept" EntityType="Self.dept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emp" EntityType="Self.Emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equ" EntityType="Self.Equ" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__dept__dept_manag__276EDEB3" Association="Self.FK__dept__dept_manag__276EDEB3">
+            <End Role="Emp" EntitySet="Emp" />
+            <End Role="dept" EntitySet="dept" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Emp__Emp_dept__14270015" Association="Self.FK__Emp__Emp_dept__14270015">
+            <End Role="dept" EntitySet="dept" />
+            <End Role="Emp" EntitySet="Emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equ__Equ_resp__75A278F5" Association="Self.FK__Equ__Equ_resp__75A278F5">
+            <End Role="Emp" EntitySet="Emp" />
+            <End Role="Equ" EntitySet="Equ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EMSdb1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dept">
+          <Key>
+            <PropertyRef Name="dept_id" />
+          </Key>
+          <Property Name="dept_id" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dept_name" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="dept_manager" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Emp" Relationship="Self.FK__dept__dept_manag__276EDEB3" FromRole="dept" ToRole="Emp" />
+          <NavigationProperty Name="Emp1" Relationship="Self.FK__Emp__Emp_dept__14270015" FromRole="dept" ToRole="Emp" />
+        </EntityType>
+        <EntityType Name="Emp">
+          <Key>
+            <PropertyRef Name="Emp_id" />
+          </Key>
+          <Property Name="Emp_id" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Emp_pass" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_name" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_manager" Type="Boolean" />
+          <Property Name="Emp_dept" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dept" Relationship="Self.FK__dept__dept_manag__276EDEB3" FromRole="Emp" ToRole="dept" />
+          <NavigationProperty Name="dept1" Relationship="Self.FK__Emp__Emp_dept__14270015" FromRole="Emp" ToRole="dept" />
+          <NavigationProperty Name="Equ" Relationship="Self.FK__Equ__Equ_resp__75A278F5" FromRole="Emp" ToRole="Equ" />
+        </EntityType>
+        <EntityType Name="Equ">
+          <Key>
+            <PropertyRef Name="Equ_Id" />
+          </Key>
+          <Property Name="Equ_Id" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Equ_name" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Equ_standards" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Equ_img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Equ_price" Type="Int32" />
+          <Property Name="Equ_date" Type="DateTime" Precision="0" />
+          <Property Name="Equ_location" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Equ_resp" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Emp" Relationship="Self.FK__Equ__Equ_resp__75A278F5" FromRole="Equ" ToRole="Emp" />
+        </EntityType>
+        <Association Name="FK__dept__dept_manag__276EDEB3">
+          <End Role="Emp" Type="Self.Emp" Multiplicity="0..1" />
+          <End Role="dept" Type="Self.dept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emp">
+              <PropertyRef Name="Emp_id" />
+            </Principal>
+            <Dependent Role="dept">
+              <PropertyRef Name="dept_manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Emp__Emp_dept__14270015">
+          <End Role="dept" Type="Self.dept" Multiplicity="0..1" />
+          <End Role="Emp" Type="Self.Emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dept">
+              <PropertyRef Name="dept_id" />
+            </Principal>
+            <Dependent Role="Emp">
+              <PropertyRef Name="Emp_dept" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equ__Equ_resp__75A278F5">
+          <End Role="Emp" Type="Self.Emp" Multiplicity="0..1" />
+          <End Role="Equ" Type="Self.Equ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emp">
+              <PropertyRef Name="Emp_id" />
+            </Principal>
+            <Dependent Role="Equ">
+              <PropertyRef Name="Equ_resp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EMSdb1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dept" EntityType="Self.dept" />
+          <EntitySet Name="Emp" EntityType="Self.Emp" />
+          <EntitySet Name="Equ" EntityType="Self.Equ" />
+          <AssociationSet Name="FK__dept__dept_manag__276EDEB3" Association="Self.FK__dept__dept_manag__276EDEB3">
+            <End Role="Emp" EntitySet="Emp" />
+            <End Role="dept" EntitySet="dept" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Emp__Emp_dept__14270015" Association="Self.FK__Emp__Emp_dept__14270015">
+            <End Role="dept" EntitySet="dept" />
+            <End Role="Emp" EntitySet="Emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equ__Equ_resp__75A278F5" Association="Self.FK__Equ__Equ_resp__75A278F5">
+            <End Role="Emp" EntitySet="Emp" />
+            <End Role="Equ" EntitySet="Equ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EMSdb1ModelStoreContainer" CdmEntityContainer="EMSdb1Entities">
+          <EntitySetMapping Name="dept">
+            <EntityTypeMapping TypeName="EMSdb1Model.dept">
+              <MappingFragment StoreEntitySet="dept">
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="dept_manager" ColumnName="dept_manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emp">
+            <EntityTypeMapping TypeName="EMSdb1Model.Emp">
+              <MappingFragment StoreEntitySet="Emp">
+                <ScalarProperty Name="Emp_id" ColumnName="Emp_id" />
+                <ScalarProperty Name="Emp_pass" ColumnName="Emp_pass" />
+                <ScalarProperty Name="Emp_name" ColumnName="Emp_name" />
+                <ScalarProperty Name="Emp_phone" ColumnName="Emp_phone" />
+                <ScalarProperty Name="Emp_manager" ColumnName="Emp_manager" />
+                <ScalarProperty Name="Emp_dept" ColumnName="Emp_dept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equ">
+            <EntityTypeMapping TypeName="EMSdb1Model.Equ">
+              <MappingFragment StoreEntitySet="Equ">
+                <ScalarProperty Name="Equ_Id" ColumnName="Equ_Id" />
+                <ScalarProperty Name="Equ_name" ColumnName="Equ_name" />
+                <ScalarProperty Name="Equ_standards" ColumnName="Equ_standards" />
+                <ScalarProperty Name="Equ_img" ColumnName="Equ_img" />
+                <ScalarProperty Name="Equ_price" ColumnName="Equ_price" />
+                <ScalarProperty Name="Equ_date" ColumnName="Equ_date" />
+                <ScalarProperty Name="Equ_location" ColumnName="Equ_location" />
+                <ScalarProperty Name="Equ_resp" ColumnName="Equ_resp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
